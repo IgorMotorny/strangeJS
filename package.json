@@ -1,0 +1,15 @@
+{
+  "name": "sjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sjs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+   "sjs": "./sjs.js"
+  },
+  "preferGlobal": "true",
+  "author": "Ihor Motornyi",
+  "license": "ISC"
+}
