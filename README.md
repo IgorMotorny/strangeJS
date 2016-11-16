@@ -7,7 +7,7 @@ To install local clone repo and `$ npm i -g .`
 // hight level operators
 <input>::=read(<сп. id>)
 <output>::=write(<сп. id>)
-<loop>::=do <id>=<expression> to <expression> by <expression> while (<condition>) <сп. оп.> end
+<loop>::=do <declaration> to <boolean expression> by <number> while (<boolean expression>) <program> end
 
 // math
 <math operator>::=+|-|*|/
