@@ -43,3 +43,10 @@ To install local clone repo and `$ npm i -g .`
 <letter>::=A|B..Z|a|b|..|z
 
 ```
+## Lexems
+| Lexeme | Code     |
+| :------------- | :------------- |
+| let      | 1      |
+| if      | 2     |
+| then      | 3     |
+| end      | 4     |
