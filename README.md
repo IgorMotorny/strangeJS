@@ -1,7 +1,7 @@
 To install local clone repo and `$ npm i -g .`
 
 ## Grammar
-```
+```html
 <program>::=<assignment>|<input>|<output>|<loop>|<condition>
 
 // hight level operators
