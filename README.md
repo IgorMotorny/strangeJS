@@ -101,6 +101,25 @@ To install local clone repo and `$ npm i -g .`
     </td>
   </tr>
   <tr>
+    <td>3</td>
+    <td>
+      <table>
+        <tr>
+          <td>Б</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Ц</td>
+          <td>3</td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <div>= indentifire</div>
+      <div>!= Err</div>
+    </td>
+  </tr>
+  <tr>
     <td>5</td>
     <td>
       <table>
