@@ -50,3 +50,84 @@ To install local clone repo and `$ npm i -g .`
 | if      | 2     |
 | then      | 3     |
 | end      | 4     |
+
+## Determinated table
+
+<table>
+  <tr>
+    <td>1</td>
+    <td>
+      <table>
+        <tr>
+          <td>Б</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Ц</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td>6</td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <div>= keyword, indentifire, const</div>
+      <div>!= Err</div>
+    </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>
+      <table>
+        <tr>
+          <td>Б</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Ц</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>S</td>
+          <td>4</td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <div>= keyword | err</div>
+      <div>!= Err</div>
+    </td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>
+      <table>
+        <tr>
+          <td>Ц</td>
+          <td>5</td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <div>= const</div>
+      <div>!= Err</div>
+    </td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>
+      <table>
+        <tr>
+          <td>C</td>
+          <td>6</td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <div>= keyword | err</div>
+      <div>!= Err</div>
+    </td>
+  </tr>
+</table>
