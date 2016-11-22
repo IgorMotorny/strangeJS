@@ -89,10 +89,6 @@ To install local clone repo and `$ npm i -g .`
           <td>Ц</td>
           <td>3</td>
         </tr>
-        <tr>
-          <td>S</td>
-          <td>4</td>
-        </tr>
       </table>
     </td>
     <td>
