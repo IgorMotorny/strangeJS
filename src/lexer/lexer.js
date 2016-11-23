@@ -1,10 +1,12 @@
 const logger = require('../../utils/logger.js');
+const Token = require('./token.js');
 
 const classNames = {
   L: 'Letter',
   N: 'Number',
   O: 'Operator',
-  S: 'Separator'
+  S: 'Separator',
+  D: 'Dot'
 }
 
 const classes = require('../../config/classes.js');
@@ -12,8 +14,12 @@ const keywords = require('../../config/lexems.js');
 
 class Lexer {
 
+  constructor() {
+    this.identifiers = [];
+    this.keywords = [];
+    this.constants = [];
+  }
   parse(str) {
-
     str.split('\n').forEach((line, lineIndex) => {
       let nextState;
       this.line = line;
@@ -22,6 +28,7 @@ class Lexer {
       line.split('').reduce((currentState, char, charIndex) => {
         this.charIndex = charIndex;
         this.lastChar = charIndex == (line.length -1);
+        console.log(`${char}:${this.lastChar}`);
         if (this.lastChar) {
           this.token += char;
           nextState = currentState(char);
@@ -38,10 +45,11 @@ class Lexer {
 
   getClass(ch) {
     switch (true) {
-      case ((classes.S.indexOf(ch) >= 0) || this.lastChar): return classNames.S
+      case classes.S.indexOf(ch) >= 0: return classNames.S
       case classes.L.indexOf(ch) >= 0: return classNames.L
       case classes.N.indexOf(ch) >= 0: return classNames.N
       case classes.O.indexOf(ch) >= 0: return classNames.O
+      case classes.D.indexOf(ch) >= 0: return classNames.D
       default: return null;
     }
   }
@@ -59,7 +67,7 @@ class Lexer {
     const nextState = availableStates[this.getClass(ch)];
 
     if (nextState) {
-      return nextState();
+      return this.lastChar ? availableStates[classNames.S]() : nextState();
     } else {
       const err = this.error(ch);
       throw err;
@@ -79,8 +87,7 @@ class Lexer {
     const nextState = availableStates[this.getClass(ch)];
 
     if (nextState) {
-      console.log('state 2 :: ' + nextState.name);
-      return nextState();
+      return this.lastChar ? availableStates[classNames.S]() : nextState();
     } else {
       const err = this.error(ch);
       throw err;
@@ -100,8 +107,7 @@ class Lexer {
     const nextState = availableStates[this.getClass(ch)];
 
     if (nextState) {
-      console.log('state 3 :: ' + nextState.name);
-      return nextState();
+      return this.lastChar ? availableStates[classNames.S]() : nextState();
     } else {
       const err = this.error(ch);
       throw err;
@@ -120,8 +126,7 @@ class Lexer {
     const nextState = availableStates[this.getClass(ch)];
 
     if (nextState) {
-      console.log('state 5 :: ' + nextState.name);
-      return nextState();
+      return this.lastChar ? availableStates[classNames.S]() : nextState();
     } else {
       const err = this.error(ch);
       throw err;
@@ -140,8 +145,7 @@ class Lexer {
     const nextState = availableStates[this.getClass(ch)];
 
     if (nextState) {
-      console.log('state 5 :: ' + nextState.name);
-      return nextState();
+      return this.lastChar ? availableStates[classNames.S]() : nextState();
     } else {
       const err = this.error(ch);
       throw err;
@@ -166,19 +170,40 @@ class Lexer {
   }
 
   finalStateIdentifier() {
-    console.log(`<Identifier '${this.token}' ${this.lineIndex}:${this.charIndex}>`);
+    const token = new Token(
+      'Identifier', this.token, this.lineIndex + 1,
+      this.charIndex - this.token.length + 2
+    );
+
+    this.identifiers.push(token);
+
+    console.log(token.render());
   }
 
   finalStateKeyword() {
-    console.log(`<Keyword '${this.token}' ${this.lineIndex}:${this.charIndex}>`);
+    const token = new Token(
+      'Keyword', this.token, this.lineIndex + 1,
+      this.charIndex - this.token.length + 2
+    );
+
+    this.keywords.push(token);
+
+    console.log(token.render());
   }
 
   finalStateConstant() {
-    console.log(`<Constant '${this.token}' ${this.lineIndex}:${this.charIndex}>`);
+    const token = new Token(
+      'Constant', this.token, this.lineIndex + 1,
+      this.charIndex - this.token.length + 2
+    );
+
+    this.constants.push(token);
+
+    console.log(token.render());
   }
 
   error(char) {
-    return logger(`${this.lineIndex}:${this.charIndex} Unexepected char '${char}' after '${this.token}'\n--->${this.line}`)
+    return logger(`${this.lineIndex + 1}:${this.charIndex + 1} Unexepected char '${char}' after '${this.token}'\n--->${this.line}`);
   }
 }
 
