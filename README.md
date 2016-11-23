@@ -73,7 +73,6 @@ To install local clone repo and `$ npm i -g .`
       </table>
     </td>
     <td>
-      <div>= keyword, indentifire, const</div>
       <div>!= Err</div>
     </td>
   </tr>
@@ -112,6 +111,39 @@ To install local clone repo and `$ npm i -g .`
     </td>
     <td>
       <div>= indentifire</div>
+      <div>!= Err</div>
+    </td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>
+      <table>
+        <tr>
+          <td>Ц</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>.</td>
+          <td>5</td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <div>!= Err</div>
+    </td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>
+      <table>
+        <tr>
+          <td>Ц</td>
+          <td>5</td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <div>= Constant</div>
       <div>!= Err</div>
     </td>
   </tr>
