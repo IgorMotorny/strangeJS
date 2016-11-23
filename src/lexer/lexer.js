@@ -19,6 +19,7 @@ class Lexer {
     this.keywords = [];
     this.constants = [];
   }
+
   parse(str) {
     str.split('\n').forEach((line, lineIndex) => {
       let nextState;
@@ -28,10 +29,11 @@ class Lexer {
       line.split('').reduce((currentState, char, charIndex) => {
         this.charIndex = charIndex;
         this.lastChar = charIndex == (line.length -1);
-        console.log(`${char}:${this.lastChar}`);
+
         if (this.lastChar) {
-          this.token += char;
           nextState = currentState(char);
+          this.token += char;
+          nextState = nextState(' ');
         } else {
           nextState = currentState(char);
           this.token += char;
@@ -59,7 +61,7 @@ class Lexer {
 
     const availableStates = {
       [classNames.L]: () => this.state2.bind(this),
-      [classNames.N]: () => this.state5.bind(this),
+      [classNames.N]: () => this.state4.bind(this),
       [classNames.O]: () => this.state6.bind(this),
       [classNames.S]: () => this.state1.bind(this)
     }
@@ -67,7 +69,7 @@ class Lexer {
     const nextState = availableStates[this.getClass(ch)];
 
     if (nextState) {
-      return this.lastChar ? availableStates[classNames.S]() : nextState();
+      return nextState();
     } else {
       const err = this.error(ch);
       throw err;
@@ -87,7 +89,7 @@ class Lexer {
     const nextState = availableStates[this.getClass(ch)];
 
     if (nextState) {
-      return this.lastChar ? availableStates[classNames.S]() : nextState();
+      return nextState();
     } else {
       const err = this.error(ch);
       throw err;
@@ -107,7 +109,33 @@ class Lexer {
     const nextState = availableStates[this.getClass(ch)];
 
     if (nextState) {
-      return this.lastChar ? availableStates[classNames.S]() : nextState();
+      return nextState();
+    } else {
+      const err = this.error(ch);
+      throw err;
+    }
+  }
+
+  state4(ch) {
+    const availableStates = {
+      [classNames.N]: () => this.state4.bind(this),
+      [classNames.D]: () => {
+        if (this.lastChar) {
+          const err = this.error(ch);
+          throw err;
+        }
+        return this.state5.bind(this);
+      },
+      [classNames.S]: () => {
+        this.finalStateConstant()
+        return this.state1.bind(this);
+      }
+    }
+
+    const nextState = availableStates[this.getClass(ch)];
+
+    if (nextState) {
+      return nextState();
     } else {
       const err = this.error(ch);
       throw err;
@@ -126,7 +154,7 @@ class Lexer {
     const nextState = availableStates[this.getClass(ch)];
 
     if (nextState) {
-      return this.lastChar ? availableStates[classNames.S]() : nextState();
+      return nextState();
     } else {
       const err = this.error(ch);
       throw err;
@@ -137,7 +165,7 @@ class Lexer {
     const availableStates = {
       [classNames.O]: () => this.state6.bind(this),
       [classNames.S]: () => {
-        this.keywordOrIdentifire()
+        this.keywordOrError();
         return this.state1.bind(this);
       }
     }
@@ -145,7 +173,7 @@ class Lexer {
     const nextState = availableStates[this.getClass(ch)];
 
     if (nextState) {
-      return this.lastChar ? availableStates[classNames.S]() : nextState();
+      return nextState();
     } else {
       const err = this.error(ch);
       throw err;
@@ -203,6 +231,7 @@ class Lexer {
   }
 
   error(char) {
+    console.log(char);
     return logger(`${this.lineIndex + 1}:${this.charIndex + 1} Unexepected char '${char}' after '${this.token}'\n--->${this.line}`);
   }
 }
