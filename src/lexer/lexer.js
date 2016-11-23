@@ -178,7 +178,7 @@ class Lexer {
   }
 
   error(char) {
-    return logger(`${this.lineIndex}:${this.charIndex} Unexepected char '${char}' in  '${this.token}'\n--->${this.line}`)
+    return logger(`${this.lineIndex}:${this.charIndex} Unexepected char '${char}' after '${this.token}'\n--->${this.line}`)
   }
 }
 
